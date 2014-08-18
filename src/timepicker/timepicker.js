@@ -62,6 +62,14 @@ angular.module('ui.bootstrap.timepicker', [])
       }
     });
   }
+  
+  // Disable / Enable
+  $scope.disabled = false;
+  if ($attrs.ngDisabled) {
+    $scope.$parent.$watch($parse($attrs.ngDisabled), function (value) {
+      $scope.disabled = !!value;
+    });
+  }
 
   // Get $scope.hours in 24H mode if valid
   function getHoursFromTemplate ( ) {
