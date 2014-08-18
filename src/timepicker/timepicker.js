@@ -88,7 +88,7 @@ angular.module('ui.bootstrap.timepicker', [])
   }
 
   function pad( value ) {
-    return ( angular.isDefined(value) && value.toString().length < 2 ) ? '0' + value : value;
+    return ( angular.isObject(value) && value.toString().length < 2 ) ? '0' + value : value;
   }
 
   // Respond on mousewheel spin
@@ -206,10 +206,16 @@ angular.module('ui.bootstrap.timepicker', [])
     if ( $scope.showMeridian ) {
       hours = ( hours === 0 || hours === 12 ) ? 12 : hours % 12; // Convert 24 to 12 hour system
     }
-
-    $scope.hours = keyboardChange === 'h' ? hours : pad(hours);
-    $scope.minutes = keyboardChange === 'm' ? minutes : pad(minutes);
-    $scope.meridian = selected.getHours() < 12 ? meridians[0] : meridians[1];
+    
+    if (ngModelCtrl.$modelValue) {
+      $scope.hours =  keyboardChange === 'h' ? hours : pad(hours);
+      $scope.minutes = keyboardChange === 'm' ? minutes : pad(minutes);
+      $scope.meridian = selected.getHours() < 12 ? meridians[0] : meridians[1];
+    } else {
+      $scope.hours = null;
+      $scope.minutes = null;
+      $scope.meridian = null;
+    }
   }
 
   function addMinutes( minutes ) {
