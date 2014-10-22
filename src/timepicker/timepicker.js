@@ -96,7 +96,7 @@ angular.module('ui.bootstrap.timepicker', [])
   }
 
   function pad( value ) {
-    return ( angular.isObject(value) && value.toString().length < 2 ) ? '0' + value : value;
+    return ( angular.isDefined(value) && value.toString().length < 2 ) ? '0' + value : value;
   }
 
   // Respond on mousewheel spin
